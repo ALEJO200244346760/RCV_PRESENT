@@ -962,7 +962,11 @@ const Formulario = () => {
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center p-4">
                     <div className="bg-white p-6 rounded-md shadow-lg w-full max-w-lg max-h-screen overflow-y-auto">
                         <div className="flex justify-between mb-4">
-                            {/* Función renal */}
+                            <button onClick={guardarPaciente} className="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600">
+                                Guardar Paciente
+                            </button>
+                        </div>
+                        {/* Función renal */}
                             <div className="mt-4 border-t pt-4">
                                 {!mostrarRenal && (
                                     <button
@@ -991,10 +995,6 @@ const Formulario = () => {
                                     </div>
                                 )}
                             </div>
-                            <button onClick={guardarPaciente} className="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600">
-                                Guardar Paciente
-                            </button>
-                        </div>
                         <p><strong>DNI:</strong> {datosPaciente.cuil}</p>
                         <p><strong>Edad:</strong> {datosPaciente.edad}</p>
                         <p><strong>Género:</strong> {datosPaciente.genero}</p>
