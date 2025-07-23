@@ -9,7 +9,6 @@ function Estadisticas() {
   const [pacientesFiltrados, setPacientesFiltrados] = useState([]);
   const [filtros, setFiltros] = useState({
     edad: '',
-    obra: '',
     cuil: '',
     genero: '',
     diabetes: '',
@@ -26,6 +25,19 @@ function Estadisticas() {
     cintura: '',
     hipertenso: '',
     doctor: '',
+    // Nuevos filtros basados en DatosPacienteInicial
+    medicamentosHipertension: '',
+    medicamentosDiabetes: '',
+    medicamentosColesterol: '',
+    aspirina: '',
+    tfg: '',
+    numeroGestas: '',
+    fum: '',
+    metodoAnticonceptivo: '',
+    trastornosHipertensivos: '',
+    diabetesGestacional: '',
+    sop: '',
+    enfermedad: '',
   });
   const [nivelColesterolConocido, setNivelColesterolConocido] = useState('todos'); // Estado para el conocimiento del nivel de colesterol
   const [loading, setLoading] = useState(true);
@@ -153,7 +165,6 @@ function Estadisticas() {
           edadValida &&
           cinturaValida &&
           (filtros.genero === '' || (paciente.genero && paciente.genero.toLowerCase() === filtros.genero.toLowerCase())) &&
-          (filtros.obra === '' || (paciente.obra && paciente.obra.toLowerCase() === filtros.obra.toLowerCase())) &&
           (filtros.doctor === '' || (paciente.doctor && paciente.doctor.toLowerCase() === filtros.doctor.toLowerCase())) &&
           (filtros.diabetes === '' || (paciente.diabetes && paciente.diabetes.toLowerCase() === filtros.diabetes.toLowerCase())) &&
           (filtros.fumador === '' || (paciente.fumador && paciente.fumador.toLowerCase() === filtros.fumador.toLowerCase())) &&
@@ -169,7 +180,20 @@ function Estadisticas() {
           (filtros.imc === '' || filtros.imc === categoriaIMC) &&
           (filtros.infarto === '' || (paciente.infarto && paciente.infarto.toLowerCase() === filtros.infarto.toLowerCase())) &&
           (filtros.acv === '' || (paciente.acv && paciente.acv.toLowerCase() === filtros.acv.toLowerCase())) &&
-          (filtros.hipertenso === '' || (paciente.hipertenso && paciente.hipertenso.toLowerCase() === filtros.hipertenso.toLowerCase()))
+          (filtros.hipertenso === '' || (paciente.hipertenso && paciente.hipertenso.toLowerCase() === filtros.hipertenso.toLowerCase())) &&
+          // Nuevos filtros
+          (filtros.medicamentosHipertension === '' || (paciente.medicamentosHipertension && paciente.medicamentosHipertension.toLowerCase().includes(filtros.medicamentosHipertension.toLowerCase()))) &&
+          (filtros.medicamentosDiabetes === '' || (paciente.medicamentosDiabetes && paciente.medicamentosDiabetes.toLowerCase().includes(filtros.medicamentosDiabetes.toLowerCase()))) &&
+          (filtros.medicamentosColesterol === '' || (paciente.medicamentosColesterol && paciente.medicamentosColesterol.toLowerCase().includes(filtros.medicamentosColesterol.toLowerCase()))) &&
+          (filtros.aspirina === '' || (paciente.aspirina && paciente.aspirina.toLowerCase() === filtros.aspirina.toLowerCase())) &&
+          (filtros.tfg === '' || paciente.tfg === Number(filtros.tfg)) && // Assuming TFG is a number
+          (filtros.numeroGestas === '' || paciente.numeroGestas === Number(filtros.numeroGestas)) &&
+          (filtros.fum === '' || (paciente.fum && paciente.fum.toLowerCase() === filtros.fum.toLowerCase())) &&
+          (filtros.metodoAnticonceptivo === '' || (paciente.metodoAnticonceptivo && paciente.metodoAnticonceptivo.toLowerCase().includes(filtros.metodoAnticonceptivo.toLowerCase()))) &&
+          (filtros.trastornosHipertensivos === '' || (paciente.trastornosHipertensivos && paciente.trastornosHipertensivos.toLowerCase() === filtros.trastornosHipertensivos.toLowerCase())) &&
+          (filtros.diabetesGestacional === '' || (paciente.diabetesGestacional && paciente.diabetesGestacional.toLowerCase() === filtros.diabetesGestacional.toLowerCase())) &&
+          (filtros.sop === '' || (paciente.sop && paciente.sop.toLowerCase() === filtros.sop.toLowerCase())) &&
+          (filtros.enfermedad === '' || (paciente.enfermedad && paciente.enfermedad.toLowerCase().includes(filtros.enfermedad.toLowerCase())))
         );
       });
 
@@ -218,13 +242,22 @@ function Estadisticas() {
     const recomendaciones = Advertencia[nivelRiesgoTexto] || "No hay recomendaciones disponibles.";
   
     const datos = `
-      ID: ${paciente.id}      FECHA DE REGISTRO: ${paciente.fechaRegistro}      DNI: ${paciente.cuil}     TELEFONO: ${paciente.telefono}      Edad: ${paciente.edad}      Obra Social: ${paciente.obra}     Género: ${paciente.genero}
-      HIPERTENSO: ${paciente.hipertenso}      Diabetes: ${paciente.diabetes}      Fumador: ${paciente.fumador}      exFumador: ${paciente.exfumador}
-      TA Máx.: ${paciente.presionArterial}      TA Mín.: ${paciente.taMin}      Colesterol: ${paciente.colesterol}
+      ID: ${paciente.id}      FECHA DE REGISTRO: ${paciente.fechaRegistro}      DNI: ${paciente.cuil}     TELEFONO: ${paciente.telefono}      Edad: ${paciente.edad}      Género: ${paciente.genero}
+      HIPERTENSO: ${paciente.hipertenso}      Medicamentos Hipertensión: ${paciente.medicamentosHipertension || 'N/A'}      Diabetes: ${paciente.diabetes}      Medicamentos Diabetes: ${paciente.medicamentosDiabetes || 'N/A'}      Fumador: ${paciente.fumador}      exFumador: ${paciente.exfumador}
+      TA Máx.: ${paciente.presionArterial}      TA Mín.: ${paciente.taMin}      Colesterol: ${paciente.colesterol}      Medicamentos Colesterol: ${paciente.medicamentosColesterol || 'N/A'}
       IMC: ${paciente.imc}      PESO: ${paciente.peso}      TALLA: ${paciente.talla}      CINTURA: ${paciente.cintura}      
       ACV: ${paciente.acv}      RENAL: ${paciente.renal}      PULMONAR: ${paciente.pulmonar}      INFARTO: ${paciente.infarto}
       Nivel de Riesgo: ${nivelRiesgoTexto}
       NOTIFICACION DE RIESGO: ${paciente.notificacionRiesgo}
+      Aspirina: ${paciente.aspirina || 'N/A'}
+      TFG: ${paciente.tfg || 'N/A'}
+      Enfermedad: ${paciente.enfermedad || 'N/A'}
+      ${paciente.numeroGestas ? `Número de Gestas: ${paciente.numeroGestas}` : ""}
+      ${paciente.fum ? `FUM: ${paciente.fum}` : ""}
+      ${paciente.metodoAnticonceptivo ? `Método Anticonceptivo: ${paciente.metodoAnticonceptivo}` : ""}
+      ${paciente.trastornosHipertensivos ? `Trastornos Hipertensivos: ${paciente.trastornosHipertensivos}` : ""}
+      ${paciente.diabetesGestacional ? `Diabetes Gestacional: ${paciente.diabetesGestacional}` : ""}
+      ${paciente.sop ? `SOP: ${paciente.sop}` : ""}
       ${paciente.consulta ? `CONSULTA: ${paciente.consulta}` : ""}
       ${paciente.practica ? `PRÁCTICA: ${paciente.practica}` : ""}
       ${paciente.hipertensionArterial ? `HIPERTENSION ARTERIAL: ${paciente.hipertensionArterial}` : ""}
@@ -280,21 +313,6 @@ function Estadisticas() {
                   <option value="51-60">Entre 51 y 60</option>
                   <option value="61-70">Entre 61 y 70</option>
                   <option value="71+">Mayores de 71</option>
-                </select>
-              </div>
-
-              {/* Obra Social */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700">¿Obra Social?</label>
-                <select
-                  name="obra"
-                  value={filtros.obra || ''}
-                  onChange={manejarCambio}
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value="">Todos</option>
-                  <option value="Sí">Sí</option>
-                  <option value="No">No</option>
                 </select>
               </div>
 
@@ -523,6 +541,144 @@ function Estadisticas() {
                   <option value="doctor3">Doctor 3</option>
                 </select>
               </div>
+
+              {/* Aspirina */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">¿Toma Aspirina?</label>
+                <select
+                  name="aspirina"
+                  value={filtros.aspirina || ''}
+                  onChange={manejarCambio}
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="">Todos</option>
+                  <option value="Sí">Sí</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+
+              {/* TFG */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">TFG</label>
+                <input
+                  type="number"
+                  name="tfg"
+                  value={filtros.tfg || ''}
+                  onChange={manejarCambio}
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="Filtrar por TFG"
+                />
+              </div>
+
+              {/* Enfermedad */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Enfermedad</label>
+                <input
+                  type="text"
+                  name="enfermedad"
+                  value={filtros.enfermedad || ''}
+                  onChange={manejarCambio}
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="Filtrar por Enfermedad"
+                />
+              </div>
+
+              {/* Numero de Gestas (Femenino) */}
+              {filtros.genero === 'Femenino' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Número de Gestas</label>
+                  <input
+                    type="number"
+                    name="numeroGestas"
+                    value={filtros.numeroGestas || ''}
+                    onChange={manejarCambio}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    placeholder="Filtrar por Gestas"
+                  />
+                </div>
+              )}
+
+              {/* FUM (Femenino) */}
+              {filtros.genero === 'Femenino' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">FUM</label>
+                  <input
+                    type="text" // Or date type if applicable
+                    name="fum"
+                    value={filtros.fum || ''}
+                    onChange={manejarCambio}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    placeholder="Filtrar por FUM"
+                  />
+                </div>
+              )}
+
+              {/* Metodo Anticonceptivo (Femenino) */}
+              {filtros.genero === 'Femenino' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Método Anticonceptivo</label>
+                  <input
+                    type="text"
+                    name="metodoAnticonceptivo"
+                    value={filtros.metodoAnticonceptivo || ''}
+                    onChange={manejarCambio}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    placeholder="Filtrar por Método Anticonceptivo"
+                  />
+                </div>
+              )}
+
+              {/* Trastornos Hipertensivos (Femenino) */}
+              {filtros.genero === 'Femenino' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Trastornos Hipertensivos</label>
+                  <select
+                    name="trastornosHipertensivos"
+                    value={filtros.trastornosHipertensivos || ''}
+                    onChange={manejarCambio}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    <option value="">Todos</option>
+                    <option value="Sí">Sí</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              )}
+
+              {/* Diabetes Gestacional (Femenino) */}
+              {filtros.genero === 'Femenino' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Diabetes Gestacional</label>
+                  <select
+                    name="diabetesGestacional"
+                    value={filtros.diabetesGestacional || ''}
+                    onChange={manejarCambio}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    <option value="">Todos</option>
+                    <option value="Sí">Sí</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              )}
+
+              {/* SOP (Femenino) */}
+              {filtros.genero === 'Femenino' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">SOP</label>
+                  <select
+                    name="sop"
+                    value={filtros.sop || ''}
+                    onChange={manejarCambio}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    <option value="">Todos</option>
+                    <option value="Sí">Sí</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              )}
+
             </div>
 
             {/* Botón aplicar filtros */}
@@ -570,10 +726,6 @@ function Estadisticas() {
             <div className="text-sm text-gray-500">{paciente.edad}</div>
           </div>
           <div className="flex justify-between items-start mb-2">
-            <div className="text-sm font-medium text-gray-900">Obra Social:</div>
-            <div className="text-sm text-gray-500">{paciente.obra}</div>
-          </div>
-          <div className="flex justify-between items-start mb-2">
             <div className="text-sm font-medium text-gray-900">TELEFONO:</div>
             <div className="text-sm text-gray-500">{paciente.telefono}</div>
           </div>
@@ -617,16 +769,29 @@ function Estadisticas() {
                 { label: "FUMA", value: paciente.fumador },
                 { label: "EXFUMADOR", value: paciente.exfumador },
                 { label: "COLESTEROL", value: paciente.colesterol },
+                { label: "Medicamentos Colesterol", value: paciente.medicamentosColesterol || 'N/A' },
                 { label: "IMC", value: paciente.imc },
                 { label: "Peso", value: paciente.peso },
                 { label: "Talla", value: paciente.talla },
                 { label: "Fecha de Registro", value: paciente.fechaRegistro },
                 { label: "Hipertenso", value: paciente.hipertenso },
+                { label: "Medicamentos Hipertensión", value: paciente.medicamentosHipertension || 'N/A' },
+                { label: "Diabetes", value: paciente.diabetes },
+                { label: "Medicamentos Diabetes", value: paciente.medicamentosDiabetes || 'N/A' },
+                { label: "Aspirina", value: paciente.aspirina || 'N/A' },
+                { label: "TFG", value: paciente.tfg || 'N/A' },
+                { label: "Enfermedad", value: paciente.enfermedad || 'N/A' },
                 { label: "ACV", value: paciente.acv },
                 { label: "Cintura", value: paciente.cintura },
                 { label: "RENAL", value: paciente.renal },
                 { label: "Infarto", value: paciente.infarto },
-                { label: "Hipertensión Arterial", value: paciente.hipertensionArterial !== null ? paciente.hipertensionArterial : 'N/A' },
+                { label: "Pulmonar", value: paciente.pulmonar },
+                { label: "Número de Gestas", value: paciente.numeroGestas || 'N/A' },
+                { label: "FUM", value: paciente.fum || 'N/A' },
+                { label: "Método Anticonceptivo", value: paciente.metodoAnticonceptivo || 'N/A' },
+                { label: "Trastornos Hipertensivos", value: paciente.trastornosHipertensivos || 'N/A' },
+                { label: "Diabetes Gestacional", value: paciente.diabetesGestacional || 'N/A' },
+                { label: "SOP", value: paciente.sop || 'N/A' },
                 { label: "Notificación de Riesgo", value: paciente.notificacionRiesgo !== null ? paciente.notificacionRiesgo : 'N/A' },
                 { label: "Consulta", value: paciente.consulta !== null ? paciente.consulta : 'N/A' },
                 { label: "Práctica", value: paciente.practica !== null ? paciente.practica : 'N/A' },
