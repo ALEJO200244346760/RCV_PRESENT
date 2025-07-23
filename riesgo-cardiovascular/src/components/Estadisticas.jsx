@@ -769,46 +769,49 @@ function Estadisticas() {
                 { label: "FUMA", value: paciente.fumador },
                 { label: "EXFUMADOR", value: paciente.exfumador },
                 { label: "COLESTEROL", value: paciente.colesterol },
-                { label: "Medicamentos Colesterol", value: paciente.medicamentosColesterol || 'N/A' },
+                { label: "Medicamentos Colesterol", value: paciente.medicamentosColesterol },
                 { label: "IMC", value: paciente.imc },
                 { label: "Peso", value: paciente.peso },
                 { label: "Talla", value: paciente.talla },
                 { label: "Fecha de Registro", value: paciente.fechaRegistro },
                 { label: "Hipertenso", value: paciente.hipertenso },
-                { label: "Medicamentos Hipertensión", value: paciente.medicamentosHipertension || 'N/A' },
+                { label: "Medicamentos Hipertensión", value: paciente.medicamentosHipertension },
                 { label: "Diabetes", value: paciente.diabetes },
-                { label: "Medicamentos Diabetes", value: paciente.medicamentosDiabetes || 'N/A' },
-                { label: "Aspirina", value: paciente.aspirina || 'N/A' },
-                { label: "TFG", value: paciente.tfg || 'N/A' },
-                { label: "Enfermedad", value: paciente.enfermedad || 'N/A' },
+                { label: "Medicamentos Diabetes", value: paciente.medicamentosDiabetes },
+                { label: "Aspirina", value: paciente.aspirina },
+                { label: "TFG", value: paciente.tfg },
+                { label: "Enfermedad", value: paciente.enfermedad },
                 { label: "ACV", value: paciente.acv },
                 { label: "Cintura", value: paciente.cintura },
                 { label: "RENAL", value: paciente.renal },
                 { label: "Infarto", value: paciente.infarto },
                 { label: "Pulmonar", value: paciente.pulmonar },
-                { label: "Número de Gestas", value: paciente.numeroGestas || 'N/A' },
-                { label: "FUM", value: paciente.fum || 'N/A' },
-                { label: "Método Anticonceptivo", value: paciente.metodoAnticonceptivo || 'N/A' },
-                { label: "Trastornos Hipertensivos", value: paciente.trastornosHipertensivos || 'N/A' },
-                { label: "Diabetes Gestacional", value: paciente.diabetesGestacional || 'N/A' },
-                { label: "SOP", value: paciente.sop || 'N/A' },
-                { label: "Notificación de Riesgo", value: paciente.notificacionRiesgo !== null ? paciente.notificacionRiesgo : 'N/A' },
-                { label: "Consulta", value: paciente.consulta !== null ? paciente.consulta : 'N/A' },
-                { label: "Práctica", value: paciente.practica !== null ? paciente.practica : 'N/A' },
-                { label: "Medicaciones Dispensa", value: paciente.medicacionDispensa !== null ? paciente.medicacionDispensa : 'N/A' },
-                { label: "Medicaciones Prescripción", value: paciente.medicacionPrescripcion !== null ? paciente.medicacionPrescripcion : 'N/A' },
-                { label: "Tabaquismo", value: paciente.tabaquismo !== null ? paciente.tabaquismo : 'N/A' },
-                { label: "Laboratorio", value: paciente.laboratorio !== null ? paciente.laboratorio : 'N/A' },
+                { label: "Número de Gestas", value: paciente.numeroGestas },
+                { label: "FUM", value: paciente.fum },
+                { label: "Método Anticonceptivo", value: paciente.metodoAnticonceptivo },
+                { label: "Trastornos Hipertensivos", value: paciente.trastornosHipertensivos },
+                { label: "Diabetes Gestacional", value: paciente.diabetesGestacional },
+                { label: "SOP", value: paciente.sop },
+                { label: "Notificación de Riesgo", value: paciente.notificacionRiesgo },
+                { label: "Consulta", value: paciente.consulta },
+                { label: "Práctica", value: paciente.practica },
+                { label: "Medicaciones Dispensa", value: paciente.medicacionDispensa },
+                { label: "Medicaciones Prescripción", value: paciente.medicacionPrescripcion },
+                { label: "Tabaquismo", value: paciente.tabaquismo },
+                { label: "Laboratorio", value: paciente.laboratorio },
                 { label: "Doctor", value: paciente.doctor },
-
-              ].map(({ label, value }) => (
-                <div className="flex justify-between mb-2" key={label}>
-                  <div className="w-2/5 text-sm font-medium text-gray-900">{label}:</div>
-                  <div className="w-2/5 text-sm text-gray-500 text-right">{value}</div>
-                </div>
-              ))}
+              ]
+                // FILTRA valores vacíos o nulos
+                .filter(({ value }) => value !== null && value !== undefined && value !== '')
+                .map(({ label, value }) => (
+                  <div className="flex justify-between mb-2" key={label}>
+                    <div className="w-2/5 text-sm font-medium text-gray-900">{label}:</div>
+                    <div className="w-2/5 text-sm text-gray-500 text-right">{value}</div>
+                  </div>
+                ))}
             </div>
           )}
+
 
           {/* Botón "Mostrar más" o "Mostrar menos" */}
           <button onClick={() => toggleDetalles(paciente.id)} className="text-indigo-600 hover:text-indigo-900 mt-2">
