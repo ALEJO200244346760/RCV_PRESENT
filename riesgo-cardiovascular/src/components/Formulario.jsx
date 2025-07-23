@@ -962,9 +962,35 @@ const Formulario = () => {
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center p-4">
                     <div className="bg-white p-6 rounded-md shadow-lg w-full max-w-lg max-h-screen overflow-y-auto">
                         <div className="flex justify-between mb-4">
-                            <button onClick={toggleModalMedicamentos} className="py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600">
-                                SIGIPSA
-                            </button>
+                            {/* Función renal */}
+                            <div className="mt-4 border-t pt-4">
+                                {!mostrarRenal && (
+                                    <button
+                                        onClick={() => setMostrarRenal(true)}
+                                        className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                                    >
+                                        ¿Desea calcular función renal?
+                                    </button>
+                                )}
+
+                                {mostrarRenal && (
+                                    <div className="mt-2">
+                                        <label className="text-sm font-medium text-gray-700">Creatinina (mg/dl):</label>
+                                        <input
+                                            type="number"
+                                            step="0.01"
+                                            value={creatinina}
+                                            onChange={(e) => setCreatinina(e.target.value)}
+                                            className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:ring-indigo-500 focus:border-indigo-500"
+                                        />
+                                        {tfg && (
+                                            <p className="mt-2 font-semibold text-gray-800">
+                                                Filtrado glomerular: {tfg.toFixed(1)} ml/min/1,73 m²
+                                            </p>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
                             <button onClick={guardarPaciente} className="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600">
                                 Guardar Paciente
                             </button>
@@ -1026,61 +1052,6 @@ const Formulario = () => {
                 </div>
             )}
 
-            {/* Modal para agregar medicamentos */}
-            {mostrarModalMedicamentos && (
-                <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-                    <div className="bg-white p-6 rounded-md shadow-lg w-10/12 max-w-2xl max-h-[90vh]">
-                        <h2 className="text-lg font-semibold mb-4">SIGIPSA</h2>
-                        <div className="mb-4 max-h-96 overflow-y-auto">
-                            {/* ... (el contenido del modal de medicamentos no cambia) ... */}
-                            <h3 className="text-lg font-semibold mt-4 mb-2">NOTIFICACION DE RIESGO</h3>
-                            {listaNotificacionRiesgo.map((medicamento, index) => (
-                                <div key={index}>
-                                    <input type="checkbox" value={medicamento} onChange={(e) => handleMedicamentoChange('notificacionRiesgo', e)} />
-                                    <label className="ml-2">{medicamento}</label>
-                                </div>
-                            ))}
-                            <h3 className="text-lg font-semibold mt-4 mb-2">PRÁCTICA</h3>
-                            {listaPractica.map((medicamento, index) => (
-                                <div key={index}>
-                                    <input type="checkbox" value={medicamento} onChange={(e) => handleMedicamentoChange('practica', e)} />
-                                    <label className="ml-2">{medicamento}</label>
-                                </div>
-                            ))}
-                            <h3 className="text-lg font-semibold mt-4 mb-2">Medicacion para la presión arterial</h3>
-                            {listaMedicacionPrescripcion.map((medicamento, index) => (
-                                <div key={index}>
-                                    <input type="checkbox" value={medicamento} onChange={(e) => handleMedicamentoChange('medicacionPrescripcion', e)} />
-                                    <label className="ml-2">{medicamento}</label>
-                                </div>
-                            ))}
-                            <h3 className="text-lg font-semibold mt-4 mb-2">Otros medicamentos</h3>
-                            {listaMedicacionDispensa.map((medicamento, index) => (
-                                <div key={index}>
-                                    <input type="checkbox" value={medicamento} onChange={(e) => handleMedicamentoChange('medicacionDispensa', e)} />
-                                    <label className="ml-2">{medicamento}</label>
-                                </div>
-                            ))}
-                            <h3 className="text-lg font-semibold mt-4 mb-2">TABAQUISMO</h3>
-                            {listaTabaquismo.map((medicamento, index) => (
-                                <div key={index}>
-                                    <input type="checkbox" value={medicamento} onChange={(e) => handleMedicamentoChange('tabaquismo', e)} />
-                                    <label className="ml-2">{medicamento}</label>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="flex justify-between mt-2">
-                            <button onClick={guardarMedicamentos} className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                                Guardar
-                            </button>
-                            <button onClick={cerrarModal} className="py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600">
-                                Cerrar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
             {/* Mensaje de éxito */}
             {mensajeExito && (
                 <div className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-md shadow-md">
@@ -1095,35 +1066,6 @@ const Formulario = () => {
                         <h2 className="text-lg font-semibold mb-4">Recomendaciones</h2>
                         <div className="overflow-y-auto max-h-80">
                             <pre className="whitespace-pre-wrap text-left">{modalAdvertencia}</pre>
-                        </div>
-                        {/* Función renal */}
-                        <div className="mt-4 border-t pt-4">
-                            {!mostrarRenal && (
-                                <button
-                                    onClick={() => setMostrarRenal(true)}
-                                    className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                                >
-                                    ¿Desea calcular función renal?
-                                </button>
-                            )}
-
-                            {mostrarRenal && (
-                                <div className="mt-2">
-                                    <label className="text-sm font-medium text-gray-700">Creatinina (mg/dl):</label>
-                                    <input
-                                        type="number"
-                                        step="0.01"
-                                        value={creatinina}
-                                        onChange={(e) => setCreatinina(e.target.value)}
-                                        className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:ring-indigo-500 focus:border-indigo-500"
-                                    />
-                                    {tfg && (
-                                        <p className="mt-2 font-semibold text-gray-800">
-                                            Filtrado glomerular: {tfg.toFixed(1)} ml/min/1,73 m²
-                                        </p>
-                                    )}
-                                </div>
-                            )}
                         </div>
                         <button onClick={cerrarModal} className="mt-4 py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600">
                             Cerrar
