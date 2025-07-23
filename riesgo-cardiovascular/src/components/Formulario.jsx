@@ -75,10 +75,41 @@ const Formulario = () => {
     const [mensajeExito, setMensajeExito] = useState('');
     const [ubicaciones, setUbicaciones] = useState([]);
     const { user, roles } = useAuth(); // Obtiene el usuario y roles del contexto
+    const [mostrarRenal, setMostrarRenal] = useState(false);
+    const [creatinina, setCreatinina] = useState('');
+    const [tfg, setTfg] = useState(null);
 
     // Variable para el máximo de la fecha (día actual)
     const today = new Date().toISOString().split('T')[0];
 
+    useEffect(() => {
+        if (!creatinina || isNaN(creatinina) || !datosPaciente.edad || !datosPaciente.genero) {
+            setTfg(null);
+            return;
+        }
+
+        const edad = Number(datosPaciente.edad);
+        const cr = parseFloat(creatinina);
+        let resultado = null;
+
+        if (datosPaciente.genero === 'femenino') {
+            if (cr <= 0.7) {
+                resultado = 144 * Math.pow(cr / 0.7, -0.329) * Math.pow(0.993, edad);
+            } else {
+                resultado = 144 * Math.pow(cr / 0.7, -1.209) * Math.pow(0.993, edad);
+            }
+        } else {
+            if (cr <= 0.9) {
+                resultado = 141 * Math.pow(cr / 0.9, -0.411) * Math.pow(0.993, edad);
+            } else {
+                resultado = 141 * Math.pow(cr / 0.9, -1.209) * Math.pow(0.993, edad);
+            }
+        }
+
+        setTfg(resultado);
+    }, [creatinina, datosPaciente]);
+
+        
     useEffect(() => {
         const fetchUbicaciones = async () => {
             const ubicacionesData = await getLocations();
@@ -1035,6 +1066,35 @@ const Formulario = () => {
                         <h2 className="text-lg font-semibold mb-4">Recomendaciones</h2>
                         <div className="overflow-y-auto max-h-80">
                             <pre className="whitespace-pre-wrap text-left">{modalAdvertencia}</pre>
+                        </div>
+                        {/* Función renal */}
+                        <div className="mt-4 border-t pt-4">
+                            {!mostrarRenal && (
+                                <button
+                                    onClick={() => setMostrarRenal(true)}
+                                    className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                                >
+                                    ¿Desea calcular función renal?
+                                </button>
+                            )}
+
+                            {mostrarRenal && (
+                                <div className="mt-2">
+                                    <label className="text-sm font-medium text-gray-700">Creatinina (mg/dl):</label>
+                                    <input
+                                        type="number"
+                                        step="0.01"
+                                        value={creatinina}
+                                        onChange={(e) => setCreatinina(e.target.value)}
+                                        className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:ring-indigo-500 focus:border-indigo-500"
+                                    />
+                                    {tfg && (
+                                        <p className="mt-2 font-semibold text-gray-800">
+                                            Filtrado glomerular: {tfg.toFixed(1)} ml/min/1,73 m²
+                                        </p>
+                                    )}
+                                </div>
+                            )}
                         </div>
                         <button onClick={cerrarModal} className="mt-4 py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600">
                             Cerrar
