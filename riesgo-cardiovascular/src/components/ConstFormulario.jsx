@@ -5,8 +5,12 @@ export const DatosPacienteInicial = {
     edad: '',
     obra: '',
     genero: '',
-    diabetes: '',
-    medicolesterol: '',
+    hipertenso: '', // ¿Toma medicación para HTA?
+    medicamentosHipertension: '', // Lista de medicamentos para HTA
+    diabetes: '', // ¿Toma medicación para Diabetes?
+    medicamentosDiabetes: '', // Lista de medicamentos para Diabetes
+    medicolesterol: '', // ¿Toma medicación para Colesterol?
+    medicamentosColesterol: '', // Lista de medicamentos para Colesterol
     aspirina: '',
     fumador: '',
     exfumador: '',
@@ -14,27 +18,26 @@ export const DatosPacienteInicial = {
     taMin: '',
     colesterol: '',
     peso: '',
-    talla: '', // Talla en centímetros
+    talla: '',
     cintura: '',
     fechaRegistro: new Date().toISOString().split('T')[0],
     imc: '',
-    hipertenso: '',
     enfermedad: '',
     infarto: '',
     acv: '',
     renal: '',
     pulmonar: '',
     doctor: '',
-    notificacionRiesgo: [],
-    consulta: [],
-    practica: [],
-    hipertensionArterial: [],
-    medicacionPrescripcion: [],
-    medicacionDispensa: [],
-    tabaquismo: [],
-    laboratorio: []
+    // Campos específicos para género femenino
+    numeroGestas: '',
+    fum: '',
+    metodoAnticonceptivo: '',
+    trastornosHipertensivos: '',
+    diabetesGestacional: '',
+    sop: '',
+    // Campo para la función renal
+    tfg: '', // Tasa de filtrado glomerular
 };
-
 
 export const Advertencia = {
             '<10% Bajo': `-Realizar el cálculo de riesgo cardiovascular cada 12 meses.

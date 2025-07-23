@@ -318,6 +318,7 @@ const Formulario = () => {
             await axiosInstance.post('/api/pacientes', {
                 ...datosPaciente,
                 nivelRiesgo,
+                tfg: tfg,
             });
     
             console.log('Datos guardados exitosamente');
