@@ -38,7 +38,7 @@ const Header = () => {
       <Link to="/formulario" className="flex items-center text-2xl font-bold hover:text-gray-300">
         <img src="/logo192.png" alt="Logo" className="h-8 mr-2" />
         <h1>RCV</h1>
-        <h6>Daspu</h6>
+        <img src="/Daspu.jpg" alt="Daspu" className="h-8 ml-2" />
       </Link>
 
       <button 
@@ -73,9 +73,6 @@ const Header = () => {
         <nav className="absolute top-full left-0 w-full bg-red-700 text-white p-4 lg:hidden z-50">
           <Link to="/formulario" className="block py-1 hover:text-gray-300">RCV</Link>
           <Link to="/tomarPresion" className="block py-1 hover:text-gray-300">Diagnóstico</Link>
-          <Link to="/formulario-paciente" className="block py-1 hover:text-gray-300">CUS</Link>
-          <Link to="/formulario-paciente-menor" className="block py-1 hover:text-gray-300">CUS2</Link>
-          <Link to="/estadistica-menor" className="block py-1 hover:text-gray-300">Estadística CUS2</Link>
           {hasCardiologoRole && (
             <>
               <Link to="/estadisticas" className="block py-1 hover:text-gray-300">Estadísticas</Link>
