@@ -348,7 +348,7 @@ function EditarPaciente() {
         <div className="flex flex-col">
           <label className="text-sm font-medium text-gray-700">¿Toma Aspirina?</label>
           <div className="flex space-x-2 mb-2">
-            {['Sí', 'No'].map(option => (
+            {['sí', 'no'].map(option => (
               <button
                 key={option}
                 type="button"
