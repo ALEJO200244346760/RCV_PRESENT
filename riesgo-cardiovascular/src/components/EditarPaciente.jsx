@@ -8,7 +8,6 @@ const DatosPacienteInicial = {
   cuil: '',
   telefono: '',
   edad: '',
-  obra: '',
   genero: '',
   hipertenso: '', // ¿Toma medicación para HTA?
   medicamentosHipertension: '', // Lista de medicamentos para HTA
@@ -236,23 +235,6 @@ function EditarPaciente() {
             onChange={manejarCambio}
             className="mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
           />
-        </div>
-
-        {/* Obra social */}
-        <div className="flex flex-col">
-          <label className="text-sm font-medium text-gray-700">¿Tiene Obra Social?</label>
-          <div className="flex space-x-2 mb-2">
-            {['Sí', 'No'].map(option => (
-              <button
-                key={option}
-                type="button"
-                onClick={() => updateAndCalculate({ obra: option })}
-                className={`p-2 border rounded-md ${datosPaciente.obra === option ? 'bg-green-500 text-white' : 'border-gray-300'}`}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Género */}
