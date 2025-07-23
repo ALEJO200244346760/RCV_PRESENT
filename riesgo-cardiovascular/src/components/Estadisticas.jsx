@@ -802,7 +802,7 @@ function Estadisticas() {
                 { label: "Doctor", value: paciente.doctor },
               ]
                 // FILTRA valores vacíos o nulos
-                .filter(({ value }) => value !== null && value !== undefined && value !== '')
+                .filter(({ value }) => value !== null && value !== undefined && value !== '' && value !== 'N/A')
                 .map(({ label, value }) => (
                   <div className="flex justify-between mb-2" key={label}>
                     <div className="w-2/5 text-sm font-medium text-gray-900">{label}:</div>
