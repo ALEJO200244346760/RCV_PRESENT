@@ -5,6 +5,28 @@ import { getLocations } from '../services/userService';
 import axiosInstance from '../axiosConfig';
 import { useAuth } from '../context/AuthContext'; // Importa el contexto de autenticación
 
+// Lista de medicamentos para la hipertensión
+const listaMedicamentosHipertension = [
+    "Enalapril 10 mg cada 12 Hs",
+    "Enalapril 5 mg cada 12 Hs",
+    "Losartan 25 mg cada 12 Hs",
+    "Losartan 50 mg cada 12 Hs",
+    "Amlodipina 10 mg cada12 Hs",
+    "Amlodipina 5 mg cada12 Hs",
+    "Hidroclorotiazida 25 mg cada 12 Hs",
+    "Furosemida 20 mg cada 12 Hs",
+    "Valsartán 160 mg cada 12 Hs",
+    "Valsartán 80 mg cada 12 Hs",
+    "Carvedilol 25 mg cada 12 Hs",
+    "Carvedilol 12,5 mg cada 12 Hs",
+    "Bisoprolol 5 mg cada 12 Hs",
+    "Bisoprolol 2,5 mg cada 12 Hs",
+    "Nebivolol 10 mg por día",
+    "Nebivolol 5 mg por día",
+    "Espironolactona 25 mg por día",
+    "Otros"
+];
+
 const Formulario = () => {
     // Añadimos los nuevos campos al estado inicial del paciente
     const [datosPaciente, setDatosPaciente] = useState({
@@ -15,6 +37,7 @@ const Formulario = () => {
         trastornosHipertensivos: '',
         diabetesGestacional: '',
         sop: '', // Síndrome de Ovario Poliquístico
+        medicamentosHipertension: '', // Para almacenar la lista de medicamentos seleccionados
     });
     const [nivelColesterolConocido, setNivelColesterolConocido] = useState(null);
     const [nivelRiesgo, setNivelRiesgo] = useState(null);
@@ -32,6 +55,8 @@ const Formulario = () => {
         tabaquismo: [],
         laboratorio: [],
     });
+    // Nuevo estado para la selección de medicamentos de hipertensión
+    const [medicamentosHipertensionSeleccionados, setMedicamentosHipertensionSeleccionados] = useState([]);
     const [mensajeExito, setMensajeExito] = useState('');
     const [ubicaciones, setUbicaciones] = useState([]);
     const { user, roles } = useAuth(); // Obtiene el usuario y roles del contexto
@@ -47,6 +72,15 @@ const Formulario = () => {
 
         fetchUbicaciones();
     }, []);
+
+    // Efecto para actualizar el campo de texto en datosPaciente cuando cambian los checkboxes
+    useEffect(() => {
+        setDatosPaciente(prev => ({
+            ...prev,
+            medicamentosHipertension: medicamentosHipertensionSeleccionados.join('; ')
+        }));
+    }, [medicamentosHipertensionSeleccionados]);
+
 
     const validarCuil = (cuil) => {
         const soloNumeros = /^\d+$/; // Expresión regular para solo números
@@ -79,6 +113,17 @@ const Formulario = () => {
         if (name === 'cuil') {
             validarCuil(value);
         }
+    };
+
+    const handleHipertensionMedChange = (e) => {
+        const { value, checked } = e.target;
+        setMedicamentosHipertensionSeleccionados(prev => {
+            if (checked) {
+                return [...prev, value];
+            } else {
+                return prev.filter(med => med !== value);
+            }
+        });
     };
 
     const manejarSeleccionColesterol = (value) => {
@@ -424,13 +469,43 @@ const Formulario = () => {
                             <button
                                 key={option}
                                 type="button"
-                                onClick={() => setDatosPaciente({ ...datosPaciente, hipertenso: option })}
+                                onClick={() => {
+                                    setDatosPaciente({ ...datosPaciente, hipertenso: option });
+                                    // Si la respuesta es No, limpiar la lista de seleccionados
+                                    if (option === 'No') {
+                                        setMedicamentosHipertensionSeleccionados([]);
+                                    }
+                                }}
                                 className={`p-2 border rounded-md ${datosPaciente.hipertenso === option ? 'bg-green-500 text-white' : 'border-gray-300'}`}
                             >
                                 {option}
                             </button>
                         ))}
                     </div>
+                    
+                    {/* LISTA CONDICIONAL DE MEDICAMENTOS PARA HIPERTENSIÓN */}
+                    {datosPaciente.hipertenso === 'Sí' && (
+                        <div className="p-4 mt-2 border-l-4 border-green-500 bg-green-50 space-y-2 rounded-r-lg">
+                            <h4 className="text-md font-semibold text-gray-800">Seleccione los medicamentos:</h4>
+                            <div className="max-h-60 overflow-y-auto pr-2">
+                                {listaMedicamentosHipertension.map((medicamento, index) => (
+                                    <div key={index} className="flex items-center my-1">
+                                        <input
+                                            type="checkbox"
+                                            id={`med-ht-${index}`}
+                                            value={medicamento}
+                                            onChange={handleHipertensionMedChange}
+                                            checked={medicamentosHipertensionSeleccionados.includes(medicamento)}
+                                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                        />
+                                        <label htmlFor={`med-ht-${index}`} className="ml-3 text-sm text-gray-700">
+                                            {medicamento}
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Diabetes */}
@@ -714,7 +789,6 @@ const Formulario = () => {
                         </div>
                         <p><strong>DNI:</strong> {datosPaciente.cuil}</p>
                         <p><strong>Edad:</strong> {datosPaciente.edad}</p>
-                        <p><strong>Obra Social:</strong> {datosPaciente.obra}</p>
                         <p><strong>Género:</strong> {datosPaciente.genero}</p>
 
                         {/* Mostrar datos adicionales si es femenino */}
@@ -726,6 +800,13 @@ const Formulario = () => {
                                 <p><strong>Trastornos hipertensivos del embarazo:</strong> {datosPaciente.trastornosHipertensivos || 'No especificado'}</p>
                                 <p><strong>Diabetes gestacional:</strong> {datosPaciente.diabetesGestacional || 'No especificado'}</p>
                                 <p><strong>Síndrome de Ovario Poliquístico:</strong> {datosPaciente.sop || 'No especificado'}</p>
+                            </div>
+                        )}
+                        
+                        {/* Mostrar medicamentos para hipertensión si aplica */}
+                        {datosPaciente.hipertenso === 'Sí' && datosPaciente.medicamentosHipertension && (
+                             <div className="mt-2 pt-2 border-t">
+                                <p><strong>Medicamentos para Hipertensión:</strong> {datosPaciente.medicamentosHipertension}</p>
                             </div>
                         )}
 
