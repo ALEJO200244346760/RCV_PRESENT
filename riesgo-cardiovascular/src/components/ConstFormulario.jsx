@@ -18,6 +18,7 @@ export const DatosPacienteInicial = {
     fechaRegistro: new Date().toISOString().split('T')[0],
     imc: '',
     hipertenso: '',
+    enfermedad: '',
     infarto: '',
     acv: '',
     renal: '',

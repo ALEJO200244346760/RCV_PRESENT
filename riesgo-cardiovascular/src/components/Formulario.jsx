@@ -6,7 +6,16 @@ import axiosInstance from '../axiosConfig';
 import { useAuth } from '../context/AuthContext'; // Importa el contexto de autenticación
 
 const Formulario = () => {
-    const [datosPaciente, setDatosPaciente] = useState(DatosPacienteInicial);
+    // Añadimos los nuevos campos al estado inicial del paciente
+    const [datosPaciente, setDatosPaciente] = useState({
+        ...DatosPacienteInicial,
+        numeroGestas: '',
+        fum: '',
+        metodoAnticonceptivo: '',
+        trastornosHipertensivos: '',
+        diabetesGestacional: '',
+        sop: '', // Síndrome de Ovario Poliquístico
+    });
     const [nivelColesterolConocido, setNivelColesterolConocido] = useState(null);
     const [nivelRiesgo, setNivelRiesgo] = useState(null);
     const [error, setError] = useState('');
@@ -26,6 +35,9 @@ const Formulario = () => {
     const [mensajeExito, setMensajeExito] = useState('');
     const [ubicaciones, setUbicaciones] = useState([]);
     const { user, roles } = useAuth(); // Obtiene el usuario y roles del contexto
+
+    // Variable para el máximo de la fecha (día actual)
+    const today = new Date().toISOString().split('T')[0];
 
     useEffect(() => {
         const fetchUbicaciones = async () => {
@@ -156,9 +168,9 @@ const Formulario = () => {
             return;
         }
     
-        const { edad, genero, diabetes, fumador, exfumador, presionArterial, colesterol, infarto, acv, renal } = datosPaciente;
+        const { edad, genero, diabetes, fumador, exfumador, presionArterial, colesterol, enfermedad, infarto, acv, renal } = datosPaciente;
     
-        if (infarto === "Sí" || acv === "Sí" || renal === "Sí") {
+        if (enfermedad === "Sí" ||infarto === "Sí" || acv === "Sí" || renal === "Sí") {
             setNivelRiesgo(">20% <30% Alto");
             setMostrarModal(true);
             return;
@@ -293,23 +305,6 @@ const Formulario = () => {
                     />
                 </div>
 
-                {/* Obra Social */}
-                <div className="flex flex-col">
-                    <label className="text-sm font-medium text-gray-700">Obra Social:</label>
-                    <div className="flex space-x-2">
-                        {['Sí', 'No'].map(option => (
-                            <button
-                                key={option}
-                                type="button"
-                                onClick={() => setDatosPaciente({ ...datosPaciente, obra: option })}
-                                className={`p-2 border rounded-md ${datosPaciente.obra === option ? 'bg-green-500 text-white' : 'border-gray-300'}`}
-                            >
-                                {option.charAt(0).toUpperCase() + option.slice(1)}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
                 {/* Género */}
                 <div className="flex flex-col">
                     <label className="text-sm font-medium text-gray-700">Género:</label>
@@ -326,6 +321,88 @@ const Formulario = () => {
                         ))}
                     </div>
                 </div>
+
+                {/* CAMPOS CONDICIONALES PARA GÉNERO FEMENINO */}
+                {datosPaciente.genero === 'femenino' && (
+                    <div className="p-4 border-l-4 border-indigo-500 bg-indigo-50 space-y-4 rounded-r-lg">
+                        <h3 className="text-lg font-semibold text-gray-800">Información Adicional</h3>
+                        
+                        {/* Numero de gestas */}
+                        <div className="flex flex-col">
+                            <label className="text-sm font-medium text-gray-700">Número de gestas:</label>
+                            <input
+                                type="number"
+                                name="numeroGestas"
+                                value={datosPaciente.numeroGestas}
+                                onChange={manejarCambio}
+                                className="mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                            />
+                        </div>
+                        
+                        {/* Fecha de ultima menstruacion */}
+                        <div className="flex flex-col">
+                            <label className="text-sm font-medium text-gray-700">Fecha de última menstruación:</label>
+                            <input
+                                type="date"
+                                name="fum"
+                                value={datosPaciente.fum}
+                                onChange={manejarCambio}
+                                max={today} // Limita la fecha al día de hoy o anteriores
+                                className="mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                            />
+                        </div>
+
+                        {/* Metodo anticonceptivo */}
+                        <div className="flex flex-col">
+                            <label className="text-sm font-medium text-gray-700">Método anticonceptivo:</label>
+                            <input
+                                type="text"
+                                name="metodoAnticonceptivo"
+                                value={datosPaciente.metodoAnticonceptivo}
+                                onChange={manejarCambio}
+                                className="mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                            />
+                        </div>
+
+                        {/* Trastornos hipertensivos del embarazo */}
+                        <div className="flex flex-col">
+                            <label className="text-sm font-medium text-gray-700">Trastornos hipertensivos del embarazo:</label>
+                            <input
+                                type="text"
+                                name="trastornosHipertensivos"
+                                value={datosPaciente.trastornosHipertensivos}
+                                onChange={manejarCambio}
+                                className="mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                            />
+                        </div>
+
+                        {/* Diabetes gestacional */}
+                        <div className="flex flex-col">
+                            <label className="text-sm font-medium text-gray-700">Diabetes gestacional:</label>
+                            <input
+                                type="text"
+                                name="diabetesGestacional"
+                                value={datosPaciente.diabetesGestacional}
+                                onChange={manejarCambio}
+                                className="mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                            />
+                        </div>
+
+                        {/* Síndrome de Ovario Poliquístico */}
+                        <div className="flex flex-col">
+                            <label className="text-sm font-medium text-gray-700">Síndrome de Ovario Poliquístico:</label>
+                            <input
+                                type="text"
+                                name="sop"
+                                value={datosPaciente.sop}
+                                onChange={manejarCambio}
+                                className="mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                            />
+                        </div>
+                    </div>
+                )}
+                {/* FIN DE CAMPOS CONDICIONALES */}
+
 
                 {/* Edad */}
                 <div className="flex flex-col">
@@ -446,6 +523,23 @@ const Formulario = () => {
                                 className={`p-2 border rounded-md ${datosPaciente.exfumador === option ? 'bg-green-500 text-white' : 'border-gray-300'}`}
                             >
                                 {option.charAt(0).toUpperCase() + option.slice(1)}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Enfermedad cardiovascular */}
+                <div className="flex flex-col">
+                    <label className="text-sm font-medium text-gray-700">¿Presenta enfermedad cardiovascular documentada?</label>
+                    <div className="flex space-x-2 mb-2">
+                        {['Sí', 'No'].map(option => (
+                            <button
+                                key={option}
+                                type="button"
+                                onClick={() => setDatosPaciente({ ...datosPaciente, enfermedad: option })}
+                                className={`p-2 border rounded-md ${datosPaciente.enfermedad === option ? 'bg-green-500 text-white' : 'border-gray-300'}`}
+                            >
+                                {option}
                             </button>
                         ))}
                     </div>
@@ -622,6 +716,19 @@ const Formulario = () => {
                         <p><strong>Edad:</strong> {datosPaciente.edad}</p>
                         <p><strong>Obra Social:</strong> {datosPaciente.obra}</p>
                         <p><strong>Género:</strong> {datosPaciente.genero}</p>
+
+                        {/* Mostrar datos adicionales si es femenino */}
+                        {datosPaciente.genero === 'femenino' && (
+                            <div className="mt-2 pt-2 border-t">
+                                <p><strong>Número de gestas:</strong> {datosPaciente.numeroGestas || 'No especificado'}</p>
+                                <p><strong>Fecha de última menstruación:</strong> {datosPaciente.fum || 'No especificada'}</p>
+                                <p><strong>Método anticonceptivo:</strong> {datosPaciente.metodoAnticonceptivo || 'No especificado'}</p>
+                                <p><strong>Trastornos hipertensivos del embarazo:</strong> {datosPaciente.trastornosHipertensivos || 'No especificado'}</p>
+                                <p><strong>Diabetes gestacional:</strong> {datosPaciente.diabetesGestacional || 'No especificado'}</p>
+                                <p><strong>Síndrome de Ovario Poliquístico:</strong> {datosPaciente.sop || 'No especificado'}</p>
+                            </div>
+                        )}
+
                         <p><strong>Diabetes:</strong> {datosPaciente.diabetes}</p>
                         <p><strong>Fumador:</strong> {datosPaciente.fumador}</p>
                         <p><strong>Ex-Fumador:</strong> {datosPaciente.exfumador}</p>
