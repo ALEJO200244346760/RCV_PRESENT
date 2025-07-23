@@ -57,7 +57,7 @@ function EditarPaciente() {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`https://rcvcba-production.up.railway.app/api/pacientes/${id}`)
+    axios.get(`https://rcvpresent-production.up.railway.app/api/pacientes/${id}`)
       .then(response => {
         setDatosPaciente(response.data);
         setNivelColesterolConocido(response.data.colesterol !== 'No' && response.data.colesterol !== '');
