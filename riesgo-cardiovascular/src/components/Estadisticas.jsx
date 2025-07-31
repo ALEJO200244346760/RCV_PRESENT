@@ -250,7 +250,7 @@ function Estadisticas() {
       Nivel de Riesgo: ${nivelRiesgoTexto}
       NOTIFICACION DE RIESGO: ${paciente.notificacionRiesgo}
       Aspirina: ${paciente.aspirina || 'N/A'}
-      TFG: ${paciente.tfg || 'N/A'}
+      TFG: ${paciente.tfg || 'N/A'} ml/min/173m²
       Enfermedad: ${paciente.enfermedad || 'N/A'}
       ${paciente.numeroGestas ? `Número de Gestas: ${paciente.numeroGestas}` : ""}
       ${paciente.fum ? `FUM: ${paciente.fum}` : ""}
@@ -792,13 +792,16 @@ function Estadisticas() {
                 { label: "Trastornos Hipertensivos", value: paciente.trastornosHipertensivos },
                 { label: "Diabetes Gestacional", value: paciente.diabetesGestacional },
                 { label: "SOP", value: paciente.sop },
-                { label: "Notificación de Riesgo", value: paciente.notificacionRiesgo },
-                { label: "Consulta", value: paciente.consulta },
-                { label: "Práctica", value: paciente.practica },
-                { label: "Medicaciones Dispensa", value: paciente.medicacionDispensa },
-                { label: "Medicaciones Prescripción", value: paciente.medicacionPrescripcion },
-                { label: "Tabaquismo", value: paciente.tabaquismo },
-                { label: "Laboratorio", value: paciente.laboratorio },
+                // Las siguientes listas se eliminarán si ya no las usas en el backend/frontend
+                // Si aún las envías como cadenas de texto, el filter y map actual las mostrará
+                // pero si ya no existen en tu modelo, simplemente no se mostrarán aquí.
+                // { label: "Notificación de Riesgo", value: paciente.notificacionRiesgo },
+                // { label: "Consulta", value: paciente.consulta },
+                // { label: "Práctica", value: paciente.practica },
+                // { label: "Medicaciones Dispensa", value: paciente.medicacionDispensa },
+                // { label: "Medicaciones Prescripción", value: paciente.medicacionPrescripcion },
+                // { label: "Tabaquismo", value: paciente.tabaquismo },
+                // { label: "Laboratorio", value: paciente.laboratorio },
                 { label: "Doctor", value: paciente.doctor },
               ]
                 // FILTRA valores vacíos o nulos
@@ -806,12 +809,13 @@ function Estadisticas() {
                 .map(({ label, value }) => (
                   <div className="flex justify-between mb-2" key={label}>
                     <div className="w-2/5 text-sm font-medium text-gray-900">{label}:</div>
-                    <div className="w-2/5 text-sm text-gray-500 text-right">{value}</div>
+                    <div className="w-2/5 text-sm text-gray-500 text-right">
+                      {label === "TFG" && value ? `${value} ml/min/1.73m²` : value}
+                    </div>
                   </div>
                 ))}
             </div>
           )}
-
 
           {/* Botón "Mostrar más" o "Mostrar menos" */}
           <button onClick={() => toggleDetalles(paciente.id)} className="text-indigo-600 hover:text-indigo-900 mt-2">
