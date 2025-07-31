@@ -38,7 +38,6 @@ const Header = () => {
       <Link to="/formulario" className="flex items-center text-2xl font-bold hover:text-gray-300">
         <img src="/logo192.png" alt="Logo" className="h-8 mr-2" />
         <h1>RCV</h1>
-        <img src="/Daspu.jpg" alt="Daspu" className="h-8 ml-2" />
       </Link>
 
       <button 
@@ -48,39 +47,34 @@ const Header = () => {
         {isMenuOpen ? <AiOutlineClose size={24} /> : <AiOutlineMenu size={24} />}
       </button>
 
-      {/* Visible en desktop */}
-      <div className="hidden lg:flex lg:items-center lg:space-x-4">
-        <Link to="/formulario" className="hover:text-gray-300">RCV</Link>
+      <nav className={`lg:flex lg:space-x-4 ${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
+        <Link to="/tomarPresion" className="block lg:inline-block hover:text-gray-300">Diagnóstico</Link>
+        <Link to="/formulario" className="block lg:inline-block hover:text-gray-300">RCV</Link>
+
         {hasCardiologoRole && (
-          <Link to="/estadisticas" className="hover:text-gray-300">Estadísticas</Link>
+          <Link to="/estadisticas" className="block lg:inline-block hover:text-gray-300">Estadísticas</Link>
+        )}
+        {hasCardiologoRole && (
+          <Link to="/admin-panel" className="block lg:inline-block hover:text-gray-300">Panel de Admin</Link>
         )}
         {token ? (
           <div className="flex items-center space-x-4">
             <div className="user-initials-circle bg-white text-red-600 rounded-full w-8 h-8 flex items-center justify-center">
               {userInitials}
             </div>
-            <button onClick={handleLoginLogout} className="hover:text-gray-300">
+            <button 
+              onClick={handleLoginLogout} 
+              className="block lg:inline-block hover:text-gray-300"
+            >
               Cerrar Sesión
             </button>
           </div>
         ) : (
-          <Link to="/login" className="hover:text-gray-300">Iniciar Sesión</Link>
+          <Link to="/login" className="block lg:inline-block hover:text-gray-300">
+            Iniciar Sesión
+          </Link>
         )}
-      </div>
-
-      {/* Menú hamburguesa: visible siempre que se abra */}
-      {isMenuOpen && (
-        <nav className="absolute top-full left-0 w-full bg-red-700 text-white p-4 lg:hidden z-50">
-          <Link to="/formulario" className="block py-1 hover:text-gray-300">RCV</Link>
-          <Link to="/tomarPresion" className="block py-1 hover:text-gray-300">Diagnóstico</Link>
-          {hasCardiologoRole && (
-            <>
-              <Link to="/estadisticas" className="block py-1 hover:text-gray-300">Estadísticas</Link>
-              <Link to="/admin-panel" className="block py-1 hover:text-gray-300">Panel de Admin</Link>
-            </>
-          )}
-        </nav>
-      )}
+      </nav>
     </header>
   );
 };
