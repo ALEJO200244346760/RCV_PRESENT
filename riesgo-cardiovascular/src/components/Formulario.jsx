@@ -990,7 +990,8 @@ const Formulario = () => {
                                         />
                                         {tfg && (
                                             <p className="mt-2 font-semibold text-gray-800">
-                                                Filtrado glomerular: {tfg.toFixed(1)} ml/min/1,73 m²
+                                                {/* 👇 Aquí está el cambio */}
+                                                Filtrado glomerular: {Number(tfg).toFixed(2)} ml/min/1,73 m²
                                             </p>
                                         )}
                                     </div>
