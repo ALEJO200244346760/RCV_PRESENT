@@ -38,6 +38,7 @@ const Header = () => {
       <Link to="/formulario" className="flex items-center text-2xl font-bold hover:text-gray-300">
         <img src="/logo192.png" alt="Logo" className="h-8 mr-2" />
         <h1>RCV</h1>
+        <img src="/Daspu.jpg" alt="Daspu" className="h-8 ml-2" />
       </Link>
 
       <button 
