@@ -50,6 +50,12 @@ public class Paciente {
     @Column
     private String pulmonar;
     @Column
+    private String alergias;
+    @Column
+    private String tiroides;
+    @Column
+    private String sedentarismo;
+    @Column
     private String aspirina; // ¿Toma aspirina?
     @Column
     private String enfermedad; // ¿Enfermedad cardiovascular documentada?

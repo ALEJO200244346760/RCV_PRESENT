@@ -842,6 +842,57 @@ const Formulario = () => {
                     </div>
                 </div>
 
+                {/* Alergias */}
+                <div className="flex flex-col">
+                    <label className="text-sm font-medium text-gray-700">¿Alergias a medicamentos o antibióticos?</label>
+                    <div className="flex space-x-2 mb-2">
+                        {['Sí', 'No'].map(option => (
+                        <button
+                        key={option}
+                        type="button"
+                        onClick={() => setDatosPaciente({ ...datosPaciente, alergias: option })}
+                        className={`p-2 border rounded-md ${datosPaciente.alergias === option ? 'bg-green-500 text-white' : 'border-gray-300'}`}
+                        >
+                        {option}
+                        </button>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Tiroides */}
+                <div className="flex flex-col">
+                    <label className="text-sm font-medium text-gray-700">¿Toma remedios para la tiroides?</label>
+                    <div className="flex space-x-2 mb-2">
+                        {['Sí', 'No'].map(option => (
+                        <button
+                        key={option}
+                        type="button"
+                        onClick={() => setDatosPaciente({ ...datosPaciente, tiroides: option })}
+                        className={`p-2 border rounded-md ${datosPaciente.tiroides === option ? 'bg-green-500 text-white' : 'border-gray-300'}`}
+                        >
+                        {option}
+                        </button>
+                        ))}
+                    </div>
+                </div>
+                
+                {/* Sedentarismo */}
+                <div className="flex flex-col">
+                    <label className="text-sm font-medium text-gray-700">¿Considera tener sedentarismo?</label>
+                    <div className="flex space-x-2 mb-2">
+                        {['Sí', 'No'].map(option => (
+                        <button
+                        key={option}
+                        type="button"
+                        onClick={() => setDatosPaciente({ ...datosPaciente, sedentarismo: option })}
+                        className={`p-2 border rounded-md ${datosPaciente.sedentarismo === option ? 'bg-green-500 text-white' : 'border-gray-300'}`}
+                        >
+                        {option}
+                        </button>
+                        ))}
+                    </div>
+                </div>
+
                 {/* Presión Arterial */}
                             <div className="flex flex-col">
                                 <label className="text-sm font-medium text-gray-700">TA Máx.:</label>
