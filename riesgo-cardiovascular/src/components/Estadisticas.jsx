@@ -38,6 +38,9 @@ function Estadisticas() {
     diabetesGestacional: '',
     sop: '',
     enfermedad: '',
+    alergias: '',
+    tiroides: '',
+    sedentarismo: '',
   });
   const [nivelColesterolConocido, setNivelColesterolConocido] = useState('todos'); // Estado para el conocimiento del nivel de colesterol
   const [loading, setLoading] = useState(true);
@@ -193,7 +196,10 @@ function Estadisticas() {
           (filtros.trastornosHipertensivos === '' || (paciente.trastornosHipertensivos && paciente.trastornosHipertensivos.toLowerCase() === filtros.trastornosHipertensivos.toLowerCase())) &&
           (filtros.diabetesGestacional === '' || (paciente.diabetesGestacional && paciente.diabetesGestacional.toLowerCase() === filtros.diabetesGestacional.toLowerCase())) &&
           (filtros.sop === '' || (paciente.sop && paciente.sop.toLowerCase() === filtros.sop.toLowerCase())) &&
-          (filtros.enfermedad === '' || (paciente.enfermedad && paciente.enfermedad.toLowerCase().includes(filtros.enfermedad.toLowerCase())))
+          (filtros.enfermedad === '' || (paciente.enfermedad && paciente.enfermedad.toLowerCase().includes(filtros.enfermedad.toLowerCase()))) &&
+          (filtros.alergias === '' || (paciente.alergias && paciente.alergias.toLowerCase() === filtros.alergias.toLowerCase())) &&
+          (filtros.tiroides === '' || (paciente.tiroides && paciente.tiroides.toLowerCase() === filtros.tiroides.toLowerCase())) &&
+          (filtros.sedentarismo === '' || (paciente.sedentarismo && paciente.sedentarismo.toLowerCase() === filtros.sedentarismo.toLowerCase()))
         );
       });
 
@@ -261,8 +267,8 @@ function Estadisticas() {
       ${paciente.medicacionDispensa ? `MEDICACION DISPENSA: ${paciente.medicacionDispensa}` : ""}
       ${paciente.tabaquismo ? `TABAQUISMO: ${paciente.tabaquismo}` : ""}
       ${paciente.laboratorio ? `LABORATORIO: ${paciente.laboratorio}` : ""}
-      EXAMEN CARDIOVASCULAR R1 R2 NF Regular No soplos Rales Edemas ni Yugular PP + regular Simétricos. Dentro de lo normal sin signos de descompensación.
       NO SOPLOS NI ARRITMIAS
+      EXAMEN CARDIOVASCULAR R1 R2 NF Regular No soplos Rales Edemas ni Yugular PP + regular Simétricos. Dentro de lo normal sin signos de descompensación.
       ELECTROCARDIOGRAMA Ritmo sinusal, frecuencia cardíaca y eje normal, sin trastornos agudos del segmento ST y T sin alteraciones en el sistema de conducción, sin Arritmias, intervalo QT dentro de lo normal
       EXAMEN CARDIOVASCULAR Dentro de lo normal sin signos de descompensación
       No refiere angor disnea palpitaciones mareos edemas entre otros
@@ -581,6 +587,36 @@ function Estadisticas() {
                 />
               </div>
 
+              {/* Alergias */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">¿Alergias?</label>
+                <select name="alergias" value={filtros.alergias || ''} onChange={manejarCambio} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
+                  <option value="">Todos</option>
+                  <option value="Sí">Sí</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+
+              {/* Tiroides */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">¿Tiroides?</label>
+                <select name="tiroides" value={filtros.tiroides || ''} onChange={manejarCambio} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
+                  <option value="">Todos</option>
+                  <option value="Sí">Sí</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+
+              {/* Sedentarismo */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">¿Sedentarismo?</label>
+                <select name="sedentarismo" value={filtros.sedentarismo || ''} onChange={manejarCambio} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
+                  <option value="">Todos</option>
+                  <option value="Sí">Sí</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+
               {/* Numero de Gestas (Femenino) */}
               {filtros.genero === 'Femenino' && (
                 <div>
@@ -784,6 +820,9 @@ function Estadisticas() {
                 { label: "RENAL", value: paciente.renal },
                 { label: "Infarto", value: paciente.infarto },
                 { label: "Pulmonar", value: paciente.pulmonar },
+                { label: "Alergias", value: paciente.alergias },
+                { label: "Tiroides", value: paciente.tiroides },
+                { label: "Sedentarismo", value: paciente.sedentarismo },
                 { label: "Número de Gestas", value: paciente.numeroGestas },
                 { label: "FUM", value: paciente.fum },
                 { label: "Método Anticonceptivo", value: paciente.metodoAnticonceptivo },
