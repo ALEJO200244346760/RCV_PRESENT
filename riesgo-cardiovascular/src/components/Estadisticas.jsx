@@ -267,10 +267,8 @@ function Estadisticas() {
       ${paciente.medicacionDispensa ? `MEDICACION DISPENSA: ${paciente.medicacionDispensa}` : ""}
       ${paciente.tabaquismo ? `TABAQUISMO: ${paciente.tabaquismo}` : ""}
       ${paciente.laboratorio ? `LABORATORIO: ${paciente.laboratorio}` : ""}
-      NO SOPLOS NI ARRITMIAS
-      EXAMEN CARDIOVASCULAR R1 R2 NF Regular No soplos Rales Edemas ni Yugular PP + regular Simétricos. Dentro de lo normal sin signos de descompensación.
+      EXAMEN CARDIOVASCULAR R1 R2 NF Regular No soplos Rales Edemas ni Yugular PP + regular Simétricos. Dentro de lo normal sin signos de descompensación. NO SOPLOS NI ARRITMIAS
       ELECTROCARDIOGRAMA Ritmo sinusal, frecuencia cardíaca y eje normal, sin trastornos agudos del segmento ST y T sin alteraciones en el sistema de conducción, sin Arritmias, intervalo QT dentro de lo normal
-      EXAMEN CARDIOVASCULAR Dentro de lo normal sin signos de descompensación
       No refiere angor disnea palpitaciones mareos edemas entre otros
       RECOMENDACIONES:
       ${recomendaciones}
