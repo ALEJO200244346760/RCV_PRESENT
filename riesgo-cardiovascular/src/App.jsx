@@ -15,31 +15,22 @@ import RoleProtectedRoute from './components/RoleProtectedRoute';
 import { useAuth } from './context/AuthContext';
 
 function App() {
-  const { token, roles } = useAuth();
-
-  const isCardiologo = Array.isArray(roles) && roles.includes('ROLE_CARDIOLOGO');
-  const isCardiologia = Array.isArray(roles) && roles.includes('ROLE_CARDIOLOGIA');
-  const isNurse = Array.isArray(roles) && roles.includes('ENFERMERO');
 
   return (
     <Router>
       <Header />
       <Routes>
-        {/* Página principal es Formulario para todos */}
+
         <Route path="/" element={<Formulario />} />
 
-        {/* Ruta para FormularioPaciente */}
-        <Route path="/formulario-paciente" element={<FormularioPaciente />} /> {/* Esta es la nueva ruta */}
+        <Route path="/formulario-paciente" element={<FormularioPaciente />} />
 
-        {/* Ruta para FormularioPacienteMenor */}
-        <Route path="/formulario-paciente-menor" element={<FormularioPacienteMenor />} /> {/* Esta es la nueva ruta */}
+        <Route path="/formulario-paciente-menor" element={<FormularioPacienteMenor />} />
         
-        {/* Ruta para EstadisticaMenor */}
-        <Route path="/estadistica-menor" element={<EstadisticaMenor />} /> {/* Esta es la nueva ruta */}
+        <Route path="/estadistica-menor" element={<EstadisticaMenor />} />
 
         <Route path="/tomarPresion" element={<TomarPresion />} />
 
-        {/* Permitir acceso solo a CARDIOLOGO para Estadisticas */}
         <Route 
           path="/estadisticas" 
           element={
@@ -59,6 +50,7 @@ function App() {
             />
           }
         />
+
         <Route
           path="/admin-panel"
           element={
@@ -68,9 +60,11 @@ function App() {
             />
           }
         />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Navigate to="/" />} />
+
       </Routes>
     </Router>
   );
