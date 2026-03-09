@@ -546,7 +546,10 @@ const Formulario = () => {
 
                 {/* Hipertenso */}
                 <div className="flex flex-col">
-                    <label className="text-sm font-medium text-gray-700">¿Toma medicamentos para la hipertensión arterial?</label>
+                    <label className="text-sm font-medium text-gray-700">
+                        ¿Toma medicamentos para la hipertensión arterial?
+                    </label>
+
                     <div className="flex space-x-2 mb-2">
                         {['Sí', 'No'].map(option => (
                             <button
@@ -554,22 +557,29 @@ const Formulario = () => {
                                 type="button"
                                 onClick={() => {
                                     setDatosPaciente({ ...datosPaciente, hipertenso: option });
-                                    // Si la respuesta es No, limpiar la lista de seleccionados
+
                                     if (option === 'No') {
                                         setMedicamentosHipertensionSeleccionados([]);
+                                        setOtroMedicamentoHipertension("");
                                     }
                                 }}
-                                className={`p-2 border rounded-md ${datosPaciente.hipertenso === option ? 'bg-green-500 text-white' : 'border-gray-300'}`}
+                                className={`p-2 border rounded-md ${
+                                    datosPaciente.hipertenso === option
+                                        ? 'bg-green-500 text-white'
+                                        : 'border-gray-300'
+                                }`}
                             >
                                 {option}
                             </button>
                         ))}
                     </div>
-                    
-                    {/* LISTA CONDICIONAL DE MEDICAMENTOS PARA HIPERTENSIÓN */}
+
                     {datosPaciente.hipertenso === 'Sí' && (
                         <div className="p-4 mt-2 border-l-4 border-green-500 bg-green-50 space-y-2 rounded-r-lg">
-                            <h4 className="text-md font-semibold text-gray-800">Seleccione los medicamentos:</h4>
+                            <h4 className="text-md font-semibold text-gray-800">
+                                Seleccione los medicamentos:
+                            </h4>
+
                             <div className="max-h-60 overflow-y-auto pr-2">
                                 {listaMedicamentosHipertension.map((medicamento, index) => (
                                     <div key={index} className="flex items-center my-1">
@@ -587,6 +597,17 @@ const Formulario = () => {
                                     </div>
                                 ))}
                             </div>
+
+                            {/* CAMPO PARA OTRO */}
+                            {medicamentosHipertensionSeleccionados.includes("Otro") && (
+                                <input
+                                    type="text"
+                                    placeholder="Especifique el medicamento"
+                                    value={otroMedicamentoHipertension}
+                                    onChange={(e) => setOtroMedicamentoHipertension(e.target.value)}
+                                    className="mt-2 w-full p-2 border border-gray-300 rounded-md"
+                                />
+                            )}
                         </div>
                     )}
                 </div>
