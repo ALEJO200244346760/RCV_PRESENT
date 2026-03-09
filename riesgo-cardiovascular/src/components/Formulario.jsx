@@ -68,6 +68,7 @@ const Formulario = () => {
         tabaquismo: [],
         laboratorio: [],
     });
+    const [otroMedicamentoHipertension, setOtroMedicamentoHipertension] = useState("");
     // Nuevo estado para la selección de medicamentos de hipertensión
     const [medicamentosHipertensionSeleccionados, setMedicamentosHipertensionSeleccionados] = useState([]);
     const [medicamentosDiabetesSeleccionados, setMedicamentosDiabetesSeleccionados] = useState([]);
@@ -599,7 +600,7 @@ const Formulario = () => {
                             </div>
 
                             {/* CAMPO PARA OTRO */}
-                            {medicamentosHipertensionSeleccionados.includes("Otro") && (
+                            {medicamentosHipertensionSeleccionados.includes("Otros") && (
                                 <input
                                     type="text"
                                     placeholder="Especifique el medicamento"
