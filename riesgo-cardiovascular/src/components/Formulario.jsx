@@ -600,7 +600,7 @@ const Formulario = () => {
                             </div>
 
                             {/* CAMPO PARA OTRO */}
-                            {medicamentosHipertensionSeleccionados.includes("Otro") && (
+                            {medicamentosHipertensionSeleccionados.includes("Otros") && (
                                 <input
                                     type="text"
                                     placeholder="Especifique el medicamento"
