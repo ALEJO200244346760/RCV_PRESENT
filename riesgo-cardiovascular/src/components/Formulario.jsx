@@ -251,7 +251,6 @@ const Formulario = () => {
             cuil,
             diabetes,
             fumador,
-            exfumador,
             presionArterial,
             colesterol,
             infarto,
@@ -260,7 +259,7 @@ const Formulario = () => {
             pulmonar
         } = datosPaciente;
     
-        if (!edad || !genero || !cuil || !diabetes || !fumador || !exfumador || !presionArterial || !colesterol || !infarto || !acv || !renal || !pulmonar) {
+        if (!edad || !genero || !cuil || !diabetes || !fumador || !presionArterial || !colesterol || !infarto || !acv || !renal || !pulmonar) {
             setError('Por favor, complete todos los campos obligatorios.');
             return false;
         }
