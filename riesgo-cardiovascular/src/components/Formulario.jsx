@@ -300,7 +300,7 @@ const Formulario = () => {
     
         const { edad, genero, diabetes, fumador, exfumador, presionArterial, colesterol, enfermedad, infarto, acv, renal } = datosPaciente;
     
-        if (enfermedad === "Sí" ||infarto === "Sí" || acv === "Sí" || renal === "Sí") {
+        if (enfermedad === "Sí" ||infarto === "Sí" || acv === "Sí" || renal === "Sí" || diabetes === "Sí") {
             setNivelRiesgo(">20% <30% Alto");
             setMostrarModal(true);
             return;
