@@ -70,6 +70,7 @@ const Formulario = () => {
     });
     const [otroMedicamentoHipertension, setOtroMedicamentoHipertension] = useState("");
     const [otroMedicamentoDiabetes, setOtroMedicamentoDiabetes] = useState("");
+    const [otroMedicamentoColesterol, setOtroMedicamentoColesterol] = useState("");
     // Nuevo estado para la selección de medicamentos de hipertensión
     const [medicamentosHipertensionSeleccionados, setMedicamentosHipertensionSeleccionados] = useState([]);
     const [medicamentosDiabetesSeleccionados, setMedicamentosDiabetesSeleccionados] = useState([]);
@@ -615,76 +616,79 @@ const Formulario = () => {
                 </div>
 
                 {/* Diabetes */}
-<div className="flex flex-col">
-    <label className="text-sm font-medium text-gray-700">
-        ¿Toma medicamentos para Diabetes?
-    </label>
-
-    <div className="flex space-x-2">
-        {['Sí', 'No'].map(option => (
-            <button
-                key={option}
-                type="button"
-                onClick={() => {
-                    setDatosPaciente({ ...datosPaciente, diabetes: option });
-
-                    if (option === 'No') {
-                        setMedicamentosDiabetesSeleccionados([]);
-                        setOtroMedicamentoDiabetes("");
-                    }
-                }}
-                className={`p-2 border rounded-md ${
-                    datosPaciente.diabetes === option
-                        ? 'bg-green-500 text-white'
-                        : 'border-gray-300'
-                }`}
-            >
-                {option.charAt(0).toUpperCase() + option.slice(1)}
-            </button>
-        ))}
-    </div>
-
-    {datosPaciente.diabetes === 'Sí' && (
-        <div className="p-4 mt-2 border-l-4 border-green-500 bg-green-50 space-y-2 rounded-r-lg">
-            <h4 className="text-md font-semibold text-gray-800">
-                Seleccione los medicamentos:
-            </h4>
-
-            <div className="max-h-60 overflow-y-auto pr-2">
-                {listaMedicamentosDiabetes.map((medicamento, index) => (
-                    <div key={index} className="flex items-center my-1">
-                        <input
-                            type="checkbox"
-                            id={`med-db-${index}`}
-                            value={medicamento}
-                            onChange={handleDiabetesMedChange}
-                            checked={medicamentosDiabetesSeleccionados.includes(medicamento)}
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                        />
-                        <label htmlFor={`med-db-${index}`} className="ml-3 text-sm text-gray-700">
-                            {medicamento}
-                        </label>
-                    </div>
-                ))}
-            </div>
-
-            {/* INPUT PARA OTRO */}
-            {medicamentosDiabetesSeleccionados.includes("Otra") && (
-                <input
-                    type="text"
-                    placeholder="Especifique el medicamento"
-                    value={otroMedicamentoDiabetes}
-                    onChange={(e) => setOtroMedicamentoDiabetes(e.target.value)}
-                    className="mt-2 w-full p-2 border border-gray-300 rounded-md"
-                />
-            )}
-        </div>
-    )}
-</div>
-
-                {/* Medicaión colesterol */}
                 <div className="flex flex-col">
-                    <label className="text-sm font-medium text-gray-700">¿Toma medicamentos para el colesterol?</label>
+                    <label className="text-sm font-medium text-gray-700">
+                        ¿Toma medicamentos para Diabetes?
+                    </label>
+
+                    <div className="flex space-x-2">
+                        {['Sí', 'No'].map(option => (
+                            <button
+                                key={option}
+                                type="button"
+                                onClick={() => {
+                                    setDatosPaciente({ ...datosPaciente, diabetes: option });
+
+                                    if (option === 'No') {
+                                        setMedicamentosDiabetesSeleccionados([]);
+                                        setOtroMedicamentoDiabetes("");
+                                    }
+                                }}
+                                className={`p-2 border rounded-md ${
+                                    datosPaciente.diabetes === option
+                                        ? 'bg-green-500 text-white'
+                                        : 'border-gray-300'
+                                }`}
+                            >
+                                {option.charAt(0).toUpperCase() + option.slice(1)}
+                            </button>
+                        ))}
+                    </div>
+
+                    {datosPaciente.diabetes === 'Sí' && (
+                        <div className="p-4 mt-2 border-l-4 border-green-500 bg-green-50 space-y-2 rounded-r-lg">
+                            <h4 className="text-md font-semibold text-gray-800">
+                                Seleccione los medicamentos:
+                            </h4>
+
+                            <div className="max-h-60 overflow-y-auto pr-2">
+                                {listaMedicamentosDiabetes.map((medicamento, index) => (
+                                    <div key={index} className="flex items-center my-1">
+                                        <input
+                                            type="checkbox"
+                                            id={`med-db-${index}`}
+                                            value={medicamento}
+                                            onChange={handleDiabetesMedChange}
+                                            checked={medicamentosDiabetesSeleccionados.includes(medicamento)}
+                                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                        />
+                                        <label htmlFor={`med-db-${index}`} className="ml-3 text-sm text-gray-700">
+                                            {medicamento}
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* INPUT PARA OTRO */}
+                            {medicamentosDiabetesSeleccionados.includes("Otra") && (
+                                <input
+                                    type="text"
+                                    placeholder="Especifique el medicamento"
+                                    value={otroMedicamentoDiabetes}
+                                    onChange={(e) => setOtroMedicamentoDiabetes(e.target.value)}
+                                    className="mt-2 w-full p-2 border border-gray-300 rounded-md"
+                                />
+                            )}
+                        </div>
+                    )}
+                </div>
+
+                {/* Medicación colesterol */}
+                <div className="flex flex-col">
+                    <label className="text-sm font-medium text-gray-700">
+                        ¿Toma medicamentos para el colesterol?
+                    </label>
+
                     <div className="flex space-x-2">
                         {['Sí', 'No'].map(option => (
                             <button
@@ -692,19 +696,29 @@ const Formulario = () => {
                                 type="button"
                                 onClick={() => {
                                     setDatosPaciente({ ...datosPaciente, medicolesterol: option });
+
                                     if (option === 'No') {
                                         setMedicamentosColesterolSeleccionados([]);
+                                        setOtroMedicamentoColesterol("");
                                     }
                                 }}
-                                className={`p-2 border rounded-md ${datosPaciente.medicolesterol === option ? 'bg-green-500 text-white' : 'border-gray-300'}`}
+                                className={`p-2 border rounded-md ${
+                                    datosPaciente.medicolesterol === option
+                                        ? 'bg-green-500 text-white'
+                                        : 'border-gray-300'
+                                }`}
                             >
                                 {option.charAt(0).toUpperCase() + option.slice(1)}
                             </button>
                         ))}
                     </div>
+
                     {datosPaciente.medicolesterol === 'Sí' && (
                         <div className="p-4 mt-2 border-l-4 border-green-500 bg-green-50 space-y-2 rounded-r-lg">
-                            <h4 className="text-md font-semibold text-gray-800">Seleccione los medicamentos:</h4>
+                            <h4 className="text-md font-semibold text-gray-800">
+                                Seleccione los medicamentos:
+                            </h4>
+
                             <div className="max-h-60 overflow-y-auto pr-2">
                                 {listaMedicamentosColesterol.map((medicamento, index) => (
                                     <div key={index} className="flex items-center my-1">
@@ -722,34 +736,18 @@ const Formulario = () => {
                                     </div>
                                 ))}
                             </div>
-                        </div>
-                    )}
-                </div>
 
-                {/* Colesterol */}
-                <div className="flex flex-col">
-                    <label className="text-sm font-medium text-gray-700">¿Conoce su nivel de colesterol?</label>
-                    <div className="flex space-x-2 mb-2">
-                        {['si', 'no'].map(option => (
-                            <button
-                                key={option}
-                                type="button"
-                                onClick={() => manejarSeleccionColesterol(option)}
-                                className={`p-2 border rounded-md ${nivelColesterolConocido === (option === 'si') ? 'bg-green-500 text-white' : 'border-gray-300'}`}
-                            >
-                                {option.charAt(0).toUpperCase() + option.slice(1)}
-                            </button>
-                        ))}
-                    </div>
-                    {nivelColesterolConocido === true && (
-                        <input
-                            type="number"
-                            name="colesterol"
-                            value={datosPaciente.colesterol === 'No' ? '' : datosPaciente.colesterol}
-                            onChange={manejarCambio}
-                            className="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                            style={{ appearance: 'none' }}
-                        />
+                            {/* CAMPO PARA OTRO */}
+                            {medicamentosColesterolSeleccionados.includes("Otro") && (
+                                <input
+                                    type="text"
+                                    placeholder="Especifique el medicamento"
+                                    value={otroMedicamentoColesterol}
+                                    onChange={(e) => setOtroMedicamentoColesterol(e.target.value)}
+                                    className="mt-2 w-full p-2 border border-gray-300 rounded-md"
+                                />
+                            )}
+                        </div>
                     )}
                 </div>
 
