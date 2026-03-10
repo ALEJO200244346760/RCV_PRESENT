@@ -923,7 +923,7 @@ const Formulario = () => {
                 
                 {/* Sedentarismo */}
                 <div className="flex flex-col">
-                    <label className="text-sm font-medium text-gray-700">¿Considera tener sedentarismo?</label>
+                    <label className="text-sm font-medium text-gray-700">¿Realiza actividad física regularmente?</label>
                     <div className="flex space-x-2 mb-2">
                         {['Sí', 'No'].map(option => (
                         <button
@@ -950,7 +950,7 @@ const Formulario = () => {
                                     style={{ appearance: 'none' }}
                                 />
                                 <div className="mt-2 flex space-x-2">
-                                    {[80, 90, 100, 110, 120, 130, 140, 160, 180, 200, 220, 240].map(valor => (
+                                    {[80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 200, 220, 240].map(valor => (
                                         <button
                                             key={valor}
                                             type="button"
