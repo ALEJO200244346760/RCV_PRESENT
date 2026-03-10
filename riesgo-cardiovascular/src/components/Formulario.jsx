@@ -253,7 +253,6 @@ const Formulario = () => {
             fumador,
             exfumador,
             presionArterial,
-            colesterol,
             infarto,
             acv,
             renal,
