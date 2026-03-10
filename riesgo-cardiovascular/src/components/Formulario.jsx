@@ -260,7 +260,7 @@ const Formulario = () => {
             pulmonar
         } = datosPaciente;
     
-        if (!edad || !genero || !cuil || !diabetes || !fumador || !exfumador || !presionArterial || !colesterol || !infarto || !acv || !renal || !pulmonar) {
+        if (!edad || !genero || !cuil || !diabetes || !fumador || !exfumador || !presionArterial || !infarto || !acv || !renal || !pulmonar) {
             setError('Por favor, complete todos los campos obligatorios.');
             return false;
         }
@@ -276,10 +276,7 @@ const Formulario = () => {
             setError('La tensión arterial debe estar entre 60 y 250.');
             return false;
         }
-        if (colesterol !== 'No' && (colesterol < 150 || colesterol > 400)) {
-            setError('El colesterol debe estar entre 150 y 400, o ser "No".');
-            return false;
-        }
+        
     
         setError('');
         return true;
