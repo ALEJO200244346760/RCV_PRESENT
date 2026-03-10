@@ -751,7 +751,7 @@ const Formulario = () => {
                     )}
                 </div>
 
-                {/* Aspirina */}
+                {/* Aspirina ---------------*/}
                 <div className="flex flex-col">
                     <label className="text-sm font-medium text-gray-700">¿Toma aspirina o anticuagulantes?</label>
                     <div className="flex space-x-2 mb-2">
@@ -804,7 +804,7 @@ const Formulario = () => {
 
                 {/* Enfermedad cardiovascular */}
                 <div className="flex flex-col">
-                    <label className="text-sm font-medium text-gray-700">¿Presenta enfermedad cardiovascular documentada?</label>
+                    <label className="text-sm font-medium text-gray-700">¿Presenta enfermedad cardiovascular como infarto o acv?</label>
                     <div className="flex space-x-2 mb-2">
                         {['Sí', 'No'].map(option => (
                             <button
