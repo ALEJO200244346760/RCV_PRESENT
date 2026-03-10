@@ -251,6 +251,7 @@ const Formulario = () => {
             cuil,
             diabetes,
             fumador,
+            exfumador,
             presionArterial,
             colesterol,
             infarto,
@@ -259,7 +260,7 @@ const Formulario = () => {
             pulmonar
         } = datosPaciente;
     
-        if (!edad || !genero || !cuil || !diabetes || !fumador || !presionArterial || !colesterol || !infarto || !acv || !renal || !pulmonar) {
+        if (!edad || !genero || !cuil || !diabetes || !fumador || !exfumador || !presionArterial || !colesterol || !infarto || !acv || !renal || !pulmonar) {
             setError('Por favor, complete todos los campos obligatorios.');
             return false;
         }
@@ -299,7 +300,7 @@ const Formulario = () => {
     
         const { edad, genero, diabetes, fumador, exfumador, presionArterial, colesterol, enfermedad, infarto, acv, renal } = datosPaciente;
     
-        if (enfermedad === "Sí" ||infarto === "Sí" || acv === "Sí" || renal === "Sí" || diabetes === "Sí") {
+        if (enfermedad === "Sí" ||infarto === "Sí" || acv === "Sí" || renal === "Sí") {
             setNivelRiesgo(">20% <30% Alto");
             setMostrarModal(true);
             return;
