@@ -250,16 +250,14 @@ function Estadisticas() {
     const datos = `
       ID: ${paciente.id}  FECHA DE REGISTRO: ${paciente.fechaRegistro}  DNI: ${paciente.cuil}  TELEFONO: ${paciente.telefono}  Edad: ${paciente.edad}  Género: ${paciente.genero}  HIPERTENSO: ${paciente.hipertenso}  Medicamentos Hipertensión: ${paciente.medicamentosHipertension || 'N/A'}  Diabetes: ${paciente.diabetes}  Medicamentos Diabetes: ${paciente.medicamentosDiabetes || 'N/A'}  Fumador: ${paciente.fumador}  exFumador: ${paciente.exfumador}  TA Máx.: ${paciente.presionArterial}  TA Mín.: ${paciente.taMin}  Colesterol: ${paciente.colesterol}  Medicamentos Colesterol: ${paciente.medicamentosColesterol || 'N/A'}  IMC: ${paciente.imc}  PESO: ${paciente.peso}  TALLA: ${paciente.talla}  CINTURA: ${paciente.cintura}  ACV: ${paciente.acv}  RENAL: ${paciente.renal}  PULMONAR: ${paciente.pulmonar}  ALERGIAS: ${paciente.alergias || 'N/A'}  TIROIDES: ${paciente.tiroides || 'N/A'}  SEDENTARISMO: ${paciente.sedentarismo || 'N/A'}  INFARTO: ${paciente.infarto}
       Nivel de Riesgo: ${nivelRiesgoTexto}
-      NOTIFICACION DE RIESGO: ${paciente.notificacionRiesgo || 'N/A'}
       Aspirina: ${paciente.aspirina || 'N/A'}
       TFG: ${paciente.tfg ? String(paciente.tfg).substring(0, 5) : 'N/A'} ml/min/1.73m²
-      ${paciente.numeroGestas ? `Número de Gestas: ${paciente.numeroGestas}` : ""}
+      ${paciente.numeroGestas ? `Número de Gestas: ${paciente.numeroGestas}` : ""} ${paciente.fum ? `FUM: ${paciente.fum}` : ""}
       EXAMEN CARDIOVASCULAR R1 R2 NF Regular No soplos Rales Edemas ni Yugular PP + regular Simétricos. Dentro de lo normal sin signos de descompensación. NO SOPLOS NI ARRITMIAS
       ELECTROCARDIOGRAMA Ritmo sinusal, frecuencia cardíaca y eje normal, sin trastornos agudos del segmento ST y T sin alteraciones en el sistema de conducción, sin Arritmias, intervalo QT dentro de lo normal
       No refiere angor disnea palpitaciones mareos edemas entre otros
       RECOMENDACIONES:
       ${recomendaciones}
-      ${paciente.fum ? `FUM: ${paciente.fum}` : ""}
       ${paciente.metodoAnticonceptivo ? `Método Anticonceptivo: ${paciente.metodoAnticonceptivo}` : ""}
       ${paciente.trastornosHipertensivos ? `Trastornos Hipertensivos: ${paciente.trastornosHipertensivos}` : ""}
       ${paciente.diabetesGestacional ? `Diabetes Gestacional: ${paciente.diabetesGestacional}` : ""}
