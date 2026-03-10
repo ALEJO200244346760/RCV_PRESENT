@@ -1032,7 +1032,7 @@ const Formulario = () => {
                 {/* Doctor */}
                 <div className="flex flex-col mt-4">
                     <div className="flex justify-end space-x-2">
-                        {['doctor1', 'doctor2', 'doctor3'].map(doctor => (
+                        {['Doctora Losada', 'Laboratorio', 'Nutrición'].map(doctor => (
                             <button
                                 key={doctor}
                                 type="button"
